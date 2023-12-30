@@ -37,14 +37,14 @@ export default class User extends BaseModel {
   @hasMany(() => Game)
   public todos: HasMany<typeof Game>;
 
-  // @column()
-  // public rememberMeToken: string | null
+  @column()
+  public rememberMeToken: string | null
 
-  // @column.dateTime({ autoCreate: true })
-  // public createdAt: DateTime
+  @column.dateTime({ autoCreate: true })
+  public createdAt: DateTime
 
-  // @column.dateTime({ autoCreate: true, autoUpdate: true })
-  // public updatedAt: DateTime
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  public updatedAt: DateTime
 
   @beforeSave()
   public static async hashPassword(user: User) {
