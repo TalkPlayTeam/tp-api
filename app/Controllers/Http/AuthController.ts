@@ -14,18 +14,9 @@ export default class AuthController {
 
     public async register({ request, auth }: HttpContextContract) {
 
-        const email = request.input("email");
-        const password = request.input("password");
-        const name = request.input("name");
-
-        /**
-        * Create a new user
-        */
-
+        const data = request.only(['username', 'displayName', 'email', 'password', 'about', 'private', 'logo', 'banner'])
         const user = new User();
-        user.email = email;
-        user.password = password;
-        user.username = name;
+        user.merge(data)
         await user.save();
 
         const token = await auth.use("api").login(user, {

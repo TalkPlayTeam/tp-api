@@ -1,5 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, ManyToMany, belongsTo, column, manyToMany } from '@ioc:Adonis/Lucid/Orm'
+import Studio from './Studio'
+import User from './User'
 
 export default class Game extends BaseModel {
   @column({ isPrimary: true })
@@ -12,14 +14,17 @@ export default class Game extends BaseModel {
   public single: string
 
   @column()
-  public description: string
+  public platform: string
 
   @column()
-  public logo: string
-
-  @column()
-  public banner: string
+  public download: string
 
   @column()
   public dateRelease: DateTime
+
+  @belongsTo(() => Studio)
+  public creator: BelongsTo<typeof Studio>
+
+  @manyToMany(() => User)
+  public players: ManyToMany<typeof User>
 }

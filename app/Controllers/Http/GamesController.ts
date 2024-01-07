@@ -24,7 +24,6 @@ export default class GamesController {
         if (game) {
             game.name = request.input('name');
             game.single = request.input('single');
-            game.description = request.input('description')
 
             if (await game.save()) {
                 return game
@@ -38,7 +37,6 @@ export default class GamesController {
         const user = await auth.authenticate();
         const game = new Game();
         game.name = request.input('name');
-        game.description = request.input('description');
         await game.save()
         return game
     }
