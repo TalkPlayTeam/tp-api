@@ -32,4 +32,9 @@ Route.group(() => {
     Route.post("games", "GamesController.store");
   }).middleware("auth:api");
 
+
+  Route.group(() => {
+    Route.post("studios", "StudiosController.store")
+  })
+
 }).prefix("api");

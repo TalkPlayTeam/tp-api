@@ -5,7 +5,7 @@ import User from './User'
 
 export default class Game extends BaseModel {
   @column({ isPrimary: true })
-  public idGame: number
+  public id: number
 
   @column()
   public name: string
@@ -22,7 +22,12 @@ export default class Game extends BaseModel {
   @column()
   public dateRelease: DateTime
 
-  @belongsTo(() => Studio)
+  @column()
+  public studioId: number
+
+  @belongsTo(() => Studio, {
+    // foreignKey: 'studio_id',
+  })
   public creator: BelongsTo<typeof Studio>
 
   @manyToMany(() => User)

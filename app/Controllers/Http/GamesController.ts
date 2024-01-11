@@ -3,23 +3,23 @@ import Game from "App/Models/Game";
 
 export default class GamesController {
 
-    public async index({ request }: HttpContextContract) {
-        const todos = await Game.query();
-        return todos
+    public async index({ }: HttpContextContract) {
+        const games = await Game.query();
+        return games
     }
 
-    public async show({ request, params }: HttpContextContract) {
+    public async show({ params }: HttpContextContract) {
         try {
-            const todo = await Game.find(params.id);
-            if (todo) {
-                return todo
+            const game = await Game.find(params.id)
+            if (game) {
+                return game
             }
         } catch (error) {
             console.log(error)
         }
     }
 
-    public async update({ auth, request, params }: HttpContextContract) {
+    public async update({ request, params }: HttpContextContract) {
         const game = await Game.find(params.id);
         if (game) {
             game.name = request.input('name');
@@ -33,10 +33,11 @@ export default class GamesController {
         return; // 401
     }
 
-    public async store({ auth, request, response }: HttpContextContract) {
-        const user = await auth.authenticate();
+    public async store({ request }: HttpContextContract) {
+        const data = request.only(['name', 'single', 'platform', 'download', 'date_release', 'studio_id'])
+
         const game = new Game();
-        game.name = request.input('name');
+        game.merge(data)
         await game.save()
         return game
     }

@@ -10,6 +10,7 @@ export default class extends BaseSchema {
       table.string('single').notNullable()
       table.string('platform').notNullable()
       table.string('download').notNullable()
+      table.dateTime('date_release').notNullable()
       table.integer('studio_id').unsigned().references('studios.id')
     })
   }
